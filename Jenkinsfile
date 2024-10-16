@@ -2,11 +2,11 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
-            steps {
-               sh 'pipenv --python python3 sync'
-            }
-        }
+	stage('Build') {
+   	    steps {
+       	       sh '/Users/glu01/.local/bin/pipenv --python python3 sync'
+   	    }
+	}
         stage('Test') {
             steps {
                sh 'pipenv run pytest'

@@ -9,7 +9,7 @@ pipeline {
 	}
         stage('Test') {
             steps {
-               sh 'pipenv run pytest'
+               sh '/Users/glu01/.local/bin/pipenv run pytest'
             }
         }
         stage('Package') {

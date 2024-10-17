@@ -34,11 +34,11 @@ if __name__ == '__main__':
 
     logger.info("Reading SBDL parties df")
     parties_df = DataLoader.read_parties(spark, job_run_env, enable_hive, hive_db)
-    relation_df = Transformations.get_relations(accounts_df)
+    relation_df = Transformations.get_relations(parties_df)
 
     logger.info("Reading SBDL parties address df")
     address_df = DataLoader.read_address(spark, job_run_env, enable_hive, hive_db)
-    relation_address_df = Transformations.get_address(accounts_df)
+    relation_address_df = Transformations.get_address(address_df)
 
     logger.info("Join Party Relations and Address")
     party_address_df = Transformations.join_party_address(relation_df, relation_address_df)
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     logger.info("Apply Header and create Event")
     final_df = Transformations.apply_header(spark, data_df)
     logger.info("Preparing to send data to Kafka")
-    kafka_kv_df = final_df.select(col("payload.contractIdentifier.newValue").alias("key"),
+    kafka_kv_df = final_df.select(col("payload.contractIdentifier.new_value").alias("key"),
                                   to_json(struct("*")).alias("value"))
     input("Press Any Key")
     # kafka_kv_df.write.format("noop").mode("overwrite").save("test_data\noop")

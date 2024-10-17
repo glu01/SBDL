@@ -162,7 +162,7 @@ def test_blank_test(spark):
 def test_get_config():
     conf_local = get_config('LOCAL')
     conf_qa = get_config("QA")
-    assert conf_local['kafka.topic'] == 'sbdl_kafka_cloud'
+    assert conf_local['kafka.topic'] == 'sbdl-kafka-cloud'
     assert conf_qa['hive.database'] == 'sbdl_db_qa'
 
 def test_read_accounts(spark):
